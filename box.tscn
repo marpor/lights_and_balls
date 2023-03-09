@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://ci7jkde1g2e0d"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2207g"]
+frequency = 0.02
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kksnu"]
+noise = SubResource("FastNoiseLite_2207g")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n13fk"]
+albedo_color = Color(0.356863, 0.501961, 0.25098, 1)
+roughness_texture = SubResource("NoiseTexture2D_kksnu")
+heightmap_enabled = true
+heightmap_texture = SubResource("NoiseTexture2D_kksnu")
+subsurf_scatter_texture = SubResource("NoiseTexture2D_kksnu")
+
+[sub_resource type="BoxMesh" id="BoxMesh_574vn"]
+subdivide_width = 10
+subdivide_height = 10
+subdivide_depth = 10
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e4bes"]
+
+[node name="Box" type="RigidBody3D"]
+transform = Transform3D(0.910684, 0, 0.413104, 0, 1, 0, -0.413104, 0, 0.910684, 0, 0, -3)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_n13fk")
+mesh = SubResource("BoxMesh_574vn")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_e4bes")

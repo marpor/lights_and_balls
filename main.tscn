@@ -1,0 +1,102 @@
+[gd_scene load_steps=9 format=3 uid="uid://b0dkyfqhj4cri"]
+
+[ext_resource type="PackedScene" uid="uid://ci7jkde1g2e0d" path="res://box.tscn" id="1_re3th"]
+[ext_resource type="PackedScene" uid="uid://dhh2ty0solngi" path="res://box2.tscn" id="2_hykut"]
+[ext_resource type="PackedScene" uid="uid://db1jw01e02cr8" path="res://ball.tscn" id="3_obc2x"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fswcf"]
+
+[sub_resource type="Sky" id="Sky_kmb2d"]
+sky_material = SubResource("ProceduralSkyMaterial_fswcf")
+
+[sub_resource type="Environment" id="Environment_7h3g6"]
+background_mode = 2
+sky = SubResource("Sky_kmb2d")
+ambient_light_source = 3
+ambient_light_color = Color(0, 0.792157, 0.843137, 1)
+reflected_light_source = 2
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+sdfgi_energy = 2.0
+glow_enabled = true
+glow_strength = 1.16
+
+[sub_resource type="BoxMesh" id="BoxMesh_ow3y1"]
+size = Vector3(20, 1, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2sghs"]
+size = Vector3(20, 1, 4)
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7h3g6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.918507, 0.312337, -0.242468, 0.136338, 0.325437, 0.935683, 0.371157, -0.892489, 0.256332, -2.17632, 5.72688, -1.57526)
+light_energy = 0.5
+shadow_enabled = true
+shadow_bias = 0.01
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.92454, 3.34679, -0.284378)
+light_energy = 7.51
+light_specular = 2.597
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.99839, 9)
+fov = 50.0
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999037, -0.0438809, 0, 0.0438809, 0.999037, 0, -1, -3)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_ow3y1")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_2sghs")
+
+[node name="Box" parent="." instance=ExtResource("1_re3th")]
+transform = Transform3D(0.90177, 0.139571, 0.409061, -0.127105, 0.990212, -0.0576572, -0.413104, 0, 0.910684, -0.063348, 0.0889066, -2.98236)
+gravity_scale = 0.01
+
+[node name="Box2" parent="." instance=ExtResource("2_hykut")]
+transform = Transform3D(0.808978, -0.10057, -0.579172, -0.021548, 0.979521, -0.200186, 0.587444, 0.174426, 0.790244, -1.56472, 0.120523, -2.49711)
+gravity_scale = 0.01
+
+[node name="Box3" parent="." instance=ExtResource("2_hykut")]
+transform = Transform3D(0.220824, -0.0753679, -0.972397, -0.106204, 0.989223, -0.10079, 0.969514, 0.12553, 0.210439, 1.88926, 0.130067, -2.96023)
+gravity_scale = 0.01
+
+[node name="Box4" parent="." instance=ExtResource("2_hykut")]
+transform = Transform3D(0.653571, -0.740377, -0.157121, 0.723951, 0.550976, 0.415114, -0.220771, -0.385055, 0.896099, -1.11515, 0.378931, -4.14669)
+gravity_scale = 0.01
+
+[node name="Ball" parent="." instance=ExtResource("3_obc2x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.734403, 2, -2.29249)
+gravity_scale = 0.1
+
+[node name="Ball3" parent="." instance=ExtResource("3_obc2x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.473795, 3.77576, -2.38661)
+gravity_scale = 0.1
+
+[node name="Ball4" parent="." instance=ExtResource("3_obc2x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.858981, 3.66099, -3.22197)
+gravity_scale = 0.1
+
+[node name="Ball5" parent="." instance=ExtResource("3_obc2x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.368376, 11.6648, -2.72781)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball6" parent="." instance=ExtResource("3_obc2x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19878, 5.91646, -2.42695)
+gravity_scale = 0.1
+
+[node name="Ball2" parent="." instance=ExtResource("3_obc2x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.254553, 7.77018, -3.03933)
+gravity_scale = 0.1
