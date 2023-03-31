@@ -77,26 +77,20 @@ gravity_scale = 0.01
 
 [node name="Ball" parent="." instance=ExtResource("3_obc2x")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.734403, 2, -2.29249)
-gravity_scale = 0.1
 
 [node name="Ball3" parent="." instance=ExtResource("3_obc2x")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.473795, 3.77576, -2.38661)
-gravity_scale = 0.1
 
 [node name="Ball4" parent="." instance=ExtResource("3_obc2x")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.858981, 3.66099, -3.22197)
-gravity_scale = 0.1
 
 [node name="Ball5" parent="." instance=ExtResource("3_obc2x")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.368376, 11.6648, -2.72781)
 mass = 10.0
-gravity_scale = 0.1
 linear_velocity = Vector3(0, -5, 0)
 
 [node name="Ball6" parent="." instance=ExtResource("3_obc2x")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19878, 5.91646, -2.42695)
-gravity_scale = 0.1
 
 [node name="Ball2" parent="." instance=ExtResource("3_obc2x")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.254553, 7.77018, -3.03933)
-gravity_scale = 0.1

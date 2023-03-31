@@ -1,0 +1,721 @@
+[gd_scene load_steps=10 format=3 uid="uid://b0dkyfqhj4cri"]
+
+[ext_resource type="PackedScene" uid="uid://ci7jkde1g2e0d" path="res://box.tscn" id="2_2utlj"]
+[ext_resource type="PackedScene" uid="uid://db1jw01e02cr8" path="res://ball.tscn" id="3_1i03y"]
+[ext_resource type="PackedScene" uid="uid://dhh2ty0solngi" path="res://box2.tscn" id="4_3x4c0"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fswcf"]
+
+[sub_resource type="Sky" id="Sky_kmb2d"]
+sky_material = SubResource("ProceduralSkyMaterial_fswcf")
+
+[sub_resource type="Environment" id="Environment_7h3g6"]
+sky = SubResource("Sky_kmb2d")
+ambient_light_source = 3
+ambient_light_color = Color(0, 0.792157, 0.843137, 1)
+reflected_light_source = 2
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+sdfgi_energy = 2.0
+glow_enabled = true
+glow_strength = 1.16
+
+[sub_resource type="BoxMesh" id="BoxMesh_ow3y1"]
+size = Vector3(20, 1, 4)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_syamv"]
+radius = 3.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2sghs"]
+size = Vector3(20, 1, 4)
+
+[node name="Clock1" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7h3g6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.918507, 0.312337, -0.242468, -0.0293102, 0.665309, 0.745992, 0.394318, -0.678092, 0.620246, -2.17632, 5.72688, 1.41123)
+visible = false
+shadow_enabled = true
+shadow_bias = 0.01
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.353911, -3)
+light_energy = 3.641
+light_specular = 2.817
+shadow_enabled = true
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, -1, 9, 6.68991)
+light_energy = 1.545
+shadow_enabled = true
+spot_range = 29.598
+spot_attenuation = 0.0206173
+spot_angle = 33.83
+spot_angle_attenuation = 3.605
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.99839, 9)
+fov = 50.0
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999037, -0.0438809, 0, 0.0438809, 0.999037, 0, -1, -3)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_ow3y1")
+skeleton = NodePath("../..")
+
+[node name="LightCollision" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 0.999999, -7.45058e-09, 0, 7.45058e-09, 0.999999, 0, -2.25955, -0.14136)
+shape = SubResource("SphereShape3D_syamv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_2sghs")
+
+[node name="Box" parent="." instance=ExtResource("2_2utlj")]
+transform = Transform3D(0.90177, 0.139571, 0.409061, -0.127105, 0.990212, -0.0576572, -0.413104, 0, 0.910684, -0.063348, 0.203729, -1.71037)
+gravity_scale = 0.01
+can_sleep = false
+
+[node name="Box2" parent="." instance=ExtResource("4_3x4c0")]
+transform = Transform3D(0.808978, -0.10057, -0.579172, -0.021548, 0.979521, -0.200186, 0.587444, 0.174426, 0.790244, -1.56472, 0.120523, -2.49711)
+gravity_scale = 0.01
+can_sleep = false
+
+[node name="Box3" parent="." instance=ExtResource("4_3x4c0")]
+transform = Transform3D(0.220824, -0.0753679, -0.972397, -0.106204, 0.989223, -0.10079, 0.969514, 0.12553, 0.210439, 1.88926, 0.130067, -2.96023)
+gravity_scale = 0.01
+can_sleep = false
+
+[node name="Box4" parent="." instance=ExtResource("4_3x4c0")]
+transform = Transform3D(0.653571, -0.740377, -0.157121, 0.723951, 0.550976, 0.415114, -0.220771, -0.385055, 0.896099, -1.11515, 0.378931, -4.14669)
+gravity_scale = 0.01
+can_sleep = false
+
+[node name="Ball" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.734403, 2, -2.29249)
+gravity_scale = 0.1
+
+[node name="Ball3" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.473795, 3.77576, -2.38661)
+gravity_scale = 0.1
+
+[node name="Ball4" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.858981, 3.66099, -3.22197)
+gravity_scale = 0.1
+
+[node name="Ball5" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.368376, 11.6648, -2.72781)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball6" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19878, 5.91646, -2.42695)
+gravity_scale = 0.1
+
+[node name="Ball2" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.254553, 7.77018, -3.03933)
+gravity_scale = 0.1
+
+[node name="Ball7" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.474363, 2.31977, -2.29249)
+gravity_scale = 0.1
+
+[node name="Ball8" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.68256, 4.09553, -2.38661)
+gravity_scale = 0.1
+
+[node name="Ball9" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.349785, 3.98075, -3.22197)
+gravity_scale = 0.1
+
+[node name="Ball10" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.840389, 11.9845, -2.72781)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball11" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00998712, 6.23622, -2.42695)
+gravity_scale = 0.1
+
+[node name="Ball12" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.46332, 8.08995, -3.03933)
+gravity_scale = 0.1
+
+[node name="Ball13" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(0.880096, 0, 0.474795, 0, 1, 0, -0.474795, 0, 0.880096, -6.47148, 2.41595, -2.9607)
+gravity_scale = 0.1
+
+[node name="Ball14" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(0.880096, 0, 0.474795, 0, 1, 0, -0.474795, 0, 0.880096, -5.45284, 4.19172, -3.61719)
+gravity_scale = 0.1
+
+[node name="Ball15" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.879895, 4.07694, -1.52087)
+gravity_scale = 0.1
+
+[node name="Ball16" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(0.880096, 0, 0.474795, 0, 1, 0, -0.474795, 0, 0.880096, -6.35603, 12.0807, -3.51762)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball17" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.21969, 6.33241, -0.725853)
+gravity_scale = 0.1
+
+[node name="Ball18" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.233639, 8.18614, -1.33824)
+gravity_scale = 0.1
+
+[node name="Ball19" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.70194, 7.31151, -2.29249)
+gravity_scale = 0.1
+
+[node name="Ball20" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.49374, 9.08728, -2.38661)
+gravity_scale = 0.1
+
+[node name="Ball21" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.82652, 8.9725, -3.22197)
+gravity_scale = 0.1
+
+[node name="Ball22" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.18742, 16.9763, -3.08224)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball23" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.16631, 11.228, -2.42695)
+gravity_scale = 0.1
+
+[node name="Ball24" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.22618, 13.0817, -3.6193)
+gravity_scale = 0.1
+
+[node name="Ball25" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.49317, 7.63128, -2.29249)
+gravity_scale = 0.1
+
+[node name="Ball26" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.284974, 9.40704, -2.38661)
+gravity_scale = 0.1
+
+[node name="Ball27" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.61775, 9.29226, -3.22197)
+gravity_scale = 0.1
+
+[node name="Ball28" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.07648, 17.296, -4.17773)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball29" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.95755, 11.5477, -2.42695)
+gravity_scale = 0.1
+
+[node name="Ball30" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.504217, 13.4015, -3.03933)
+gravity_scale = 0.1
+
+[node name="Ball31" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.72285, 7.72747, -0.591393)
+gravity_scale = 0.1
+
+[node name="Ball32" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.51465, 9.50323, -0.685518)
+gravity_scale = 0.1
+
+[node name="Ball33" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.84743, 9.38845, -1.52087)
+gravity_scale = 0.1
+
+[node name="Ball34" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35683, 17.3922, -1.02672)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball35" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.18723, 11.6439, -0.725853)
+gravity_scale = 0.1
+
+[node name="Ball36" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7339, 13.4977, -1.33824)
+gravity_scale = 0.1
+
+[node name="Ball37" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.78662, 2, -2.29249)
+gravity_scale = 0.1
+
+[node name="Ball38" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.99482, 3.77576, -2.38661)
+gravity_scale = 0.1
+
+[node name="Ball39" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.66204, 3.66099, -3.22197)
+gravity_scale = 0.1
+
+[node name="Ball40" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15265, 11.6648, -2.72781)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball41" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.32224, 5.91646, -2.42695)
+gravity_scale = 0.1
+
+[node name="Ball42" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.745686, 7.77018, -4.10261)
+gravity_scale = 0.1
+
+[node name="Ball43" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.99538, 2.31977, -2.29249)
+gravity_scale = 0.1
+
+[node name="Ball44" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.20358, 4.09553, -2.38661)
+gravity_scale = 0.1
+
+[node name="Ball45" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.840917, 3.98075, -4.28524)
+gravity_scale = 0.1
+
+[node name="Ball46" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.36141, 11.9845, -2.72781)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball47" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.53101, 6.23622, -2.42695)
+gravity_scale = 0.1
+
+[node name="Ball48" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.98434, 8.08995, -3.03933)
+gravity_scale = 0.1
+
+[node name="Ball49" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(0.880096, 0, 0.474795, 0, 1, 0, -0.474795, 0, 0.880096, -4.25274, 2.41595, -4.15767)
+gravity_scale = 0.1
+
+[node name="Ball50" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9739, 4.19172, -0.685518)
+gravity_scale = 0.1
+
+[node name="Ball51" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.64113, 4.07694, -1.52087)
+gravity_scale = 0.1
+
+[node name="Ball52" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.13173, 12.0807, -1.02672)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball53" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(0.880096, 0, 0.474795, 0, 1, 0, -0.474795, 0, 0.880096, -4.72527, 6.33241, -4.05553)
+gravity_scale = 0.1
+
+[node name="Ball54" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.75466, 8.18614, -1.33824)
+gravity_scale = 0.1
+
+[node name="Ball55" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.180915, 7.31151, -2.29249)
+gravity_scale = 0.1
+
+[node name="Ball56" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.02728, 9.08728, -2.38661)
+gravity_scale = 0.1
+
+[node name="Ball57" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.305493, 8.9725, -3.22197)
+gravity_scale = 0.1
+
+[node name="Ball58" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.185111, 16.9763, -2.72781)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball59" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.645291, 11.228, -2.42695)
+gravity_scale = 0.1
+
+[node name="Ball60" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.80804, 13.0817, -3.03933)
+gravity_scale = 0.1
+
+[node name="Ball61" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.02785, 7.63128, -2.29249)
+gravity_scale = 0.1
+
+[node name="Ball62" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.23605, 9.40704, -2.38661)
+gravity_scale = 0.1
+
+[node name="Ball63" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.903272, 9.29226, -3.22197)
+gravity_scale = 0.1
+
+[node name="Ball64" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.39388, 17.296, -2.72781)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball65" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.563474, 11.5477, -2.42695)
+gravity_scale = 0.1
+
+[node name="Ball66" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.01681, 13.4015, -3.03933)
+gravity_scale = 0.1
+
+[node name="Ball67" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(0.880096, 0, 0.474795, 0, 1, 0, -0.474795, 0, 0.880096, -5.98436, 7.72747, -3.2235)
+gravity_scale = 0.1
+
+[node name="Ball68" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(0.880096, 0, 0.474795, 0, 1, 0, -0.474795, 0, 0.880096, -4.96572, 9.50323, -3.87998)
+gravity_scale = 0.1
+
+[node name="Ball69" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.326407, 9.38845, -1.52087)
+gravity_scale = 0.1
+
+[node name="Ball70" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(0.880096, 0, 0.474795, 0, 1, 0, -0.474795, 0, 0.880096, -5.86891, 17.3922, -3.78041)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball71" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(0.880096, 0, 0.474795, 0, 1, 0, -0.474795, 0, 0.880096, -6.45689, 11.6439, -3.12135)
+gravity_scale = 0.1
+
+[node name="Ball72" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.787126, 13.4977, -1.33824)
+gravity_scale = 0.1
+
+[node name="Ball73" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.58929, 2.59921, -2.29249)
+gravity_scale = 0.1
+
+[node name="Ball74" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2306, 6.08378, -3.72376)
+gravity_scale = 0.1
+
+[node name="Ball75" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.46471, 4.26019, -3.22197)
+gravity_scale = 0.1
+
+[node name="Ball76" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.07277, 13.9728, -4.06496)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball77" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.12491, 6.51566, -2.42695)
+gravity_scale = 0.1
+
+[node name="Ball78" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.44984, 10.0782, -4.37648)
+gravity_scale = 0.1
+
+[node name="Ball79" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.23003, 4.62778, -3.62964)
+gravity_scale = 0.1
+
+[node name="Ball80" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.02184, 6.40355, -3.72376)
+gravity_scale = 0.1
+
+[node name="Ball81" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.35461, 6.28877, -4.55912)
+gravity_scale = 0.1
+
+[node name="Ball82" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.86401, 14.2925, -4.06496)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball83" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.69441, 8.54424, -3.7641)
+gravity_scale = 0.1
+
+[node name="Ball84" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.24108, 10.398, -4.37648)
+gravity_scale = 0.1
+
+[node name="Ball85" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.56837, 3.01516, -0.591393)
+gravity_scale = 0.1
+
+[node name="Ball86" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.25152, 6.49973, -2.02267)
+gravity_scale = 0.1
+
+[node name="Ball87" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4438, 4.67614, -1.52087)
+gravity_scale = 0.1
+
+[node name="Ball88" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.09369, 14.3887, -2.36387)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball89" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.104, 6.93162, -0.725853)
+gravity_scale = 0.1
+
+[node name="Ball90" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.47076, 10.4942, -2.67539)
+gravity_scale = 0.1
+
+[node name="Ball91" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.62175, 7.91072, -2.29249)
+gravity_scale = 0.1
+
+[node name="Ball92" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.82995, 9.68648, -2.38661)
+gravity_scale = 0.1
+
+[node name="Ball93" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.46729, 9.5717, -4.28524)
+gravity_scale = 0.1
+
+[node name="Ball94" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.98778, 17.5755, -2.72781)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball95" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.15738, 11.8272, -2.42695)
+gravity_scale = 0.1
+
+[node name="Ball96" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.61071, 13.6809, -3.03933)
+gravity_scale = 0.1
+
+[node name="Ball97" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.83052, 8.23048, -2.29249)
+gravity_scale = 0.1
+
+[node name="Ball98" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.98937, 11.7151, -3.72376)
+gravity_scale = 0.1
+
+[node name="Ball99" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.70594, 9.89147, -3.22197)
+gravity_scale = 0.1
+
+[node name="Ball100" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.19654, 17.8952, -2.72781)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball101" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.36614, 12.1469, -2.42695)
+gravity_scale = 0.1
+
+[node name="Ball102" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.20861, 15.7095, -4.37648)
+gravity_scale = 0.1
+
+[node name="Ball103" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.60084, 8.32667, -0.591393)
+gravity_scale = 0.1
+
+[node name="Ball104" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.80904, 10.1024, -0.685518)
+gravity_scale = 0.1
+
+[node name="Ball105" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.47626, 9.98766, -1.52087)
+gravity_scale = 0.1
+
+[node name="Ball106" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.96687, 17.9914, -1.02672)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball107" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.13646, 12.2431, -0.725853)
+gravity_scale = 0.1
+
+[node name="Ball108" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.58979, 14.0969, -1.33824)
+gravity_scale = 0.1
+
+[node name="Ball109" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.91778, 4.30802, -3.62964)
+gravity_scale = 0.1
+
+[node name="Ball110" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76183, 4.37497, -1.69387)
+gravity_scale = 0.1
+
+[node name="Ball111" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.04236, 5.96901, -4.55912)
+gravity_scale = 0.1
+
+[node name="Ball112" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.55175, 13.9728, -4.06496)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball113" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.38215, 8.22448, -3.7641)
+gravity_scale = 0.1
+
+[node name="Ball114" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.98107, 8.36939, -2.3466)
+gravity_scale = 0.1
+
+[node name="Ball115" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76126, 2.91897, -1.59975)
+gravity_scale = 0.1
+
+[node name="Ball116" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.55307, 4.69473, -1.69387)
+gravity_scale = 0.1
+
+[node name="Ball117" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.88584, 4.57996, -2.52923)
+gravity_scale = 0.1
+
+[node name="Ball118" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.39524, 12.5837, -2.03507)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball119" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.17339, 8.54424, -3.7641)
+gravity_scale = 0.1
+
+[node name="Ball120" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.77231, 8.68916, -2.3466)
+gravity_scale = 0.1
+
+[node name="Ball121" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.93869, 4.72397, -1.92854)
+gravity_scale = 0.1
+
+[node name="Ball122" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.78274, 4.79092, 0.0072217)
+gravity_scale = 0.1
+
+[node name="Ball123" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.06327, 6.38496, -2.85802)
+gravity_scale = 0.1
+
+[node name="Ball124" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.57267, 14.3887, -2.36387)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball125" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.40307, 8.64043, -2.063)
+gravity_scale = 0.1
+
+[node name="Ball126" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.94974, 10.4942, -2.67539)
+gravity_scale = 0.1
+
+[node name="Ball127" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.88531, 9.61954, -3.62964)
+gravity_scale = 0.1
+
+[node name="Ball128" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.67711, 11.3953, -3.72376)
+gravity_scale = 0.1
+
+[node name="Ball129" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.00989, 11.2805, -4.55912)
+gravity_scale = 0.1
+
+[node name="Ball130" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.51929, 19.2843, -4.06496)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball131" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.6784, 11.8272, -2.42695)
+gravity_scale = 0.1
+
+[node name="Ball132" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.89636, 15.3897, -4.37648)
+gravity_scale = 0.1
+
+[node name="Ball133" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.67655, 9.9393, -3.62964)
+gravity_scale = 0.1
+
+[node name="Ball134" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.46835, 11.7151, -3.72376)
+gravity_scale = 0.1
+
+[node name="Ball135" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.80113, 11.6003, -4.55912)
+gravity_scale = 0.1
+
+[node name="Ball136" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.31052, 19.6041, -4.06496)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball137" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.14092, 13.8558, -3.7641)
+gravity_scale = 0.1
+
+[node name="Ball138" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.68759, 15.7095, -4.37648)
+gravity_scale = 0.1
+
+[node name="Ball139" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.90623, 10.0355, -1.92854)
+gravity_scale = 0.1
+
+[node name="Ball140" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.69803, 11.8112, -2.02267)
+gravity_scale = 0.1
+
+[node name="Ball141" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.0308, 11.6965, -2.85802)
+gravity_scale = 0.1
+
+[node name="Ball142" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5402, 19.7002, -2.36387)
+mass = 10.0
+gravity_scale = 0.1
+linear_velocity = Vector3(0, -5, 0)
+
+[node name="Ball143" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.65749, 12.2431, -0.725853)
+gravity_scale = 0.1
+
+[node name="Ball144" parent="." instance=ExtResource("3_1i03y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.91727, 15.8057, -2.67539)
+gravity_scale = 0.1

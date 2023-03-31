@@ -1,11 +1,36 @@
-[gd_scene load_steps=3 format=3 uid="uid://db1jw01e02cr8"]
+[gd_scene load_steps=7 format=3 uid="uid://db1jw01e02cr8"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_f54dg"]
+bounce = 0.36
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_p3rx2"]
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xcars"]
+noise = SubResource("FastNoiseLite_p3rx2")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kxp8t"]
+emission = Color(0.478431, 0.215686, 0, 1)
+rim_enabled = true
+rim = 0.05
+subsurf_scatter_enabled = true
+subsurf_scatter_strength = 1.0
+subsurf_scatter_skin_mode = true
+subsurf_scatter_texture = SubResource("NoiseTexture2D_xcars")
+subsurf_scatter_transmittance_enabled = true
+subsurf_scatter_transmittance_depth = 6.435
+subsurf_scatter_transmittance_boost = 0.6
 
 [sub_resource type="SphereMesh" id="SphereMesh_shgv6"]
+material = SubResource("StandardMaterial3D_kxp8t")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_v6xvf"]
 
 [node name="Ball" type="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13829, 1, -3.26065)
+input_ray_pickable = false
+physics_material_override = SubResource("PhysicsMaterial_f54dg")
+gravity_scale = 0.1
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
